@@ -6,6 +6,6 @@ Moll, B. Kaplan, G. and Violante, G. "Monetary Policy According to HANK" *Americ
 
 Original code is available at http://www.princeton.edu/~moll/research.htm
 
-Minor modifications were made to the code to ensure F90 compliant code.
+Minor modifications were made to ensure F90 compliant code.
 
 
