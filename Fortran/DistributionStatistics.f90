@@ -61,7 +61,7 @@ lamargdist = SUM(gamarg,DIM=2)*adelta
 CALL CUMSUM(lamargdist,lamargcum)
 
 !other marginal dist
-IF ((iteratingtransition==.false.) .and. (calibrating==.false.) ) THEN
+IF ((iteratingtransition .eqv. .false.) .and. (calibrating .eqv. .false.) ) THEN
 
 	!networth grid and marginal dist
 	CALL isort2(nab,lnwgrid,ordernw)	
@@ -146,13 +146,13 @@ CALL LinInterp1 (ngpb,bgrid,lbmargcum,defnbclose*Egrosslabinc,linterp2)
 IF(Borrowing==1) FRACb0close = linterp2-lbmargcum(ngpbNEG)
 IF(Borrowing==0) FRACb0close = linterp2
 CALL LinInterp1 (ngpa,agrid,lamargcum,defnaclose*Egrosslabinc,FRACa0close)
-IF ((iteratingtransition==.false.) .and. (calibrating==.false.)) THEN
+IF ((iteratingtransition .eqv. .false.) .and. (calibrating .eqv. .false.)) THEN
 	CALL LinInterp1 (nab,lnwgrid,lnwmargcum,(defnbclose+defnaclose)*Egrosslabinc,linterp2)
 	IF(Borrowing==0) FRACnw0close = linterp2
 	IF(Borrowing==1) CALL LinInterp1 (nab,lnwgrid,lnwmargcum,-1.0e-8_8,linterp1)
 	IF(Borrowing==1) FRACnw0close = linterp2-linterp1
 END IF
-IF (iteratingtransition==.false.) THEN !since we don't store gabcum
+IF (iteratingtransition .eqv. .false.) THEN !since we don't store gabcum
 	CALL BiLinInterp1 (ngpa,agrid,ngpb,bgrid,gabcum,defnaclose*Egrosslabinc,defnbclose*Egrosslabinc,linterp2)
 	IF(Borrowing==0) FRACb0a0close = linterp2
 	IF(Borrowing==1) THEN
@@ -170,7 +170,7 @@ Ec_b0far = SUM(lc*gvec*ladelta*lbdelta, MASK = lb>=defnbclose*Egrosslabinc)/(1.0
 !percentiles: use cumulative marginal distributions
 lpvec = (/0.01,0.02,0.05,0.1,0.25,0.5,0.75,0.9,0.95,0.98,0.99 /)
 
-IF ((iteratingtransition==.false.) .and. (calibrating==.false. .or. MatchMedianLiq==1) .and. (ngpy>1 .or. deathrate>0.0)) THEN
+IF ((iteratingtransition .eqv. .false.) .and. (calibrating .eqv. .false. .or. MatchMedianLiq==1) .and. (ngpy>1 .or. deathrate>0.0)) THEN
 	DO ip = 1,11
 		
 		!liquid wealth	
@@ -182,7 +182,7 @@ IF ((iteratingtransition==.false.) .and. (calibrating==.false. .or. MatchMedianL
 	END DO
 END IF	
 
-IF ((iteratingtransition==.false.) .and. (calibrating==.false. .or. MatchMedianIll==1 .or. MatchP75Ill==1) .and. (ngpy>1 .or. deathrate>0.0)) THEN
+IF ((iteratingtransition .eqv. .false.) .and. (calibrating .eqv. .false. .or. MatchMedianIll==1 .or. MatchP75Ill==1) .and. (ngpy>1 .or. deathrate>0.0)) THEN
 	DO ip = 1,11
 	
 		!iliquid wealth
@@ -194,7 +194,7 @@ IF ((iteratingtransition==.false.) .and. (calibrating==.false. .or. MatchMedianI
 	END DO
 END IF	
 	
-IF ((iteratingtransition==.false.) .and. (calibrating==.false.) .and. (ngpy>1 .or. deathrate>0.0)) THEN
+IF ((iteratingtransition .eqv. .false.) .and. (calibrating .eqv. .false.) .and. (ngpy>1 .or. deathrate>0.0)) THEN
 	DO ip = 1,11
 
 		!net worth

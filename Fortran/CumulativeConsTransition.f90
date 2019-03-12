@@ -108,7 +108,7 @@ END DO
 !$OMP END PARALLEL DO
 
 
-IF(stickytransition==.true.) THEN
+IF(stickytransition .eqv. .true.) THEN
 	irfpointer%cumSTICKY = CumulativePolicyType(ccum1,ccum2,ccum4,dcum1,dcum2,dcum4)
 END IF
 

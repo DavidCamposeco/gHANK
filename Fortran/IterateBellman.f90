@@ -24,12 +24,12 @@ END IF
 
 
 !Initial Guess
-IF	(	(EquilibriumR==0 .and. calibrating==.false.) &
- 	.or. (EquilibriumR==1 .and. neqmiter<=3 .and. calibrating==.false.) &
- 	.or. (CalibrateDiscountRate==1 .and. neqmiter<=3 .and. calibrating==.false.) &
- 	.or. (CalibrateRhoAtInitialGuess==1 .and. neqmiter<=3 .and. calibrating==.false.) &
-	.or. (calibrating==.true. .and. ImposeEqumInCalibration==1  .and. neqmiter==1 ) &
-	.or. (calibrating==.true. .and. ImposeEqumInCalibration==0 ))  THEN
+IF	(	(EquilibriumR==0 .and. calibrating .eqv. .false.) &
+ 	.or. (EquilibriumR==1 .and. neqmiter<=3 .and. calibrating .eqv. .false.) &
+ 	.or. (CalibrateDiscountRate==1 .and. neqmiter<=3 .and. calibrating .eqv. .false.) &
+ 	.or. (CalibrateRhoAtInitialGuess==1 .and. neqmiter<=3 .and. calibrating .eqv. .false.) &
+	.or. (calibrating .eqv. .true. .and. ImposeEqumInCalibration==1  .and. neqmiter==1 ) &
+	.or. (calibrating .eqv. .true. .and. ImposeEqumInCalibration==0 ))  THEN
 	
 	!$OMP PARALLEL DO PRIVATE (ladrift,lh,lc,llabdisutil)
 	DO iaby = 1,naby

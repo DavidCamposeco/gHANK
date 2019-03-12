@@ -14,7 +14,7 @@ iteratingtransition = .true.
 
 lminmargcost = 0.01
 
-IF(Display>=1 .and. stickytransition==.true.) write(*,*)' Solving for sticky price transition without ZLB'
+IF(Display>=1 .and. stickytransition.eqv. .true.) write(*,*)' Solving for sticky price transition without ZLB'
 
 !forward guidance time
 itfg = MINLOC(cumdeltatrans, 1, MASK = cumdeltatrans>=ForwardGuideShockQtrs)
@@ -40,10 +40,10 @@ equmTRANS(:)%illassetdrop = 1.0
 !construct sequence of guesses of Rb
 equmTRANS(:)%pi = equmINITSS%pi
 
-IF(forwardguide==.false.) THEN
+IF(forwardguide .eqv. .false.) THEN
 	equmTRANS(:)%rnom = equmINITSS%rnom +phitaylor*equmTRANS(:)%pi + equmTRANS(:)%mpshock
 			
-ELSE IF(forwardguide==.true. ) THEN
+ELSE IF(forwardguide.eqv. .true. ) THEN
 	equmTRANS(1:itfg-1)%rnom = equmINITSS%rnom +phifg*equmTRANS(1:itfg-1)%pi + equmTRANS(1:itfg-1)%mpshock
 	equmTRANS(itfg:Ttransition)%rnom = equmINITSS%rnom +phitaylor*equmTRANS(itfg:Ttransition)%pi + equmTRANS(itfg:Ttransition)%mpshock
 END IF	
@@ -175,7 +175,7 @@ DO WHILE (ii<=maxitertranssticky .and. ldiffB>toltransition )
 	ELSEIF(ConvergenceRelToOutput==1) THEN
 		ldiffB= maxval(abs(lbond-equmTRANS(:)%bond)/equmINITSS%output)
 	END IF
-	IF (Display>=1) write(*,"(A,I,A)") '  Transition iter ',ii, ':'
+	IF (Display>=1) write(*,"(A,I0,A)") '  Transition iter ',ii, ':'
 	IF (Display>=1) write(*,"(A,E10.3,A,E10.3,A,E10.3)")  ',  B err',ldiffB
 	IF (Display>=1) write(*,*) '   household bond',lbond(2), ',  target bond',equmTRANS(2)%bond
 	
@@ -214,11 +214,11 @@ DO WHILE (ii<=maxitertranssticky .and. ldiffB>toltransition )
 
 
 	!inflation and nominal interest rates
-	IF(forwardguide==.false.) THEN
+	IF(forwardguide .eqv. .false.) THEN
 		equmTRANS(:)%pi = (equmTRANS(:)%rb - equmINITSS%rnom - equmTRANS(:)%mpshock) / (phitaylor-1.0) !taylor rule
 		equmTRANS(:)%rnom = equmTRANS(:)%rb + equmTRANS(:)%pi !fisher equn
 		
-	ELSE IF(forwardguide==.true.) THEN
+	ELSE IF(forwardguide.eqv. .true.) THEN
 
 		equmTRANS(1:itfg-1)%pi = (equmTRANS(1:itfg-1)%rb - equmINITSS%rnom - equmTRANS(1:itfg-1)%mpshock) / (phifg-1.0) !taylor rule
 		equmTRANS(1:itfg-1)%rnom = equmTRANS(1:itfg-1)%rb + equmTRANS(1:itfg-1)%pi !fisher equn
@@ -342,7 +342,7 @@ DO WHILE (ii<=maxitertranssticky .and. ldiffB>toltransition )
 	ii = ii+1	
 END DO
 
-IF(stickytransition==.true.) THEN
+IF(stickytransition.eqv. .true.) THEN
 	irfpointer%equmSTICKY = equmTRANS
 	irfpointer%statsSTICKY = statsTRANS
 	irfpointer%solnSTICKY = solnTRANS
