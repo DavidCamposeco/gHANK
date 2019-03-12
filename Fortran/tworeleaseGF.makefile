@@ -1,5 +1,5 @@
 FC = gfortran
-FCFLAGS = -O3 -fopenmp -ffree-line-length-1024 -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lccolamd -lcamd -lrt -lgfortran -lblas 
+FCFLAGS = -O0 -fopenmp -ffree-line-length-1024 -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lccolamd -lcamd -lrt -lgfortran -lblas 
 LDFLAGS =  -fopenmp -ffree-line-length-1024  -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lccolamd -lcamd -lrt -lgfortran -lblas
 
 
@@ -10,8 +10,8 @@ SUBR = 	AllocateArrays.o SetParameters.o Grids.o IterateBellman.o HJBUpdate.o cu
 
 OBJ = $(MOD) $(SUBR)
 
-Main: Main.o $(OBJ) 
-	$(FC) $(LDFLAGS)   $^ -o $@  $(FCFLAGS) 
+Main: $(OBJ) Main.o
+	$(FC) $(LDFLAGS)   $^ -o  $@ $(FCFLAGS)
 
 %.o: %.f90
 	$(FC) $(FCFLAGS) -c $<
