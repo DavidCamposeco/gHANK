@@ -33,9 +33,9 @@ IF(OneAssetNoCapital==0) THEN
 		IF(initialSS .eqv. .true.) CALL Grids
 		CALL IterateBellman
 		CALL StationaryDistribution
-        WRITE(*) 'Usual calls are successfull!' 
+        WRITE(*,*) 'Usual calls are successfull!' 
 		CALL DistributionStatistics
-        WRITE(*) 'CALL to DistributionStatistics was successfull!'
+        WRITE(*,*) 'CALL to DistributionStatistics was successfull!'
 
 
 		IF(DividendFundLumpSum==0) capital = Ea/(1.0-fundlev)

@@ -2,4 +2,4 @@
 
 clean:
 	rm -f *.o *.mod *.MOD *genmod* *~ 
-	rm -fr *.dSYM
+	rm -fr *.dSYM Main

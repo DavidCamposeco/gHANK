@@ -1,7 +1,9 @@
 FC = gfortran
-FCFLAGS = -O0 -fopenmp -ffree-line-length-1024 -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lccolamd -lcamd -lrt -lgfortran -lblas 
-LDFLAGS =  -fopenmp -ffree-line-length-1024  -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lccolamd -lcamd -lrt -lgfortran -lblas
-
+SPARSEFLAG = -lumfpack -lamd -lcholmod -lcolamd -lsuitesparseconfig -lccolamd -lcamd -lrt -lgfortran -lblas
+WALL = -Waliasing -Wampersand -Wconversion -Wsurprising -Wc-binding-type -Wintrinsics-std -Wintrinsic-shadow -Wline-truncation -Wtarget-lifetime -Winteger-division -Wreal-q-constant -Wunused  -Wundefined-do-loop
+DBGFLAG = $(WALL) -Wextra -Wconversion -finit-real=nan -fcheck=all
+FCFLAGS =  -O0 -fopenmp -ffree-line-length-1024  -fbacktrace -fimplicit-none $(SPARSEFLAG)
+LDFLAGS =  -O0 -fopenmp -ffree-line-length-1024  -fbacktrace -fimplicit-none $(SPARSEFLAG)
 
 MOD = umfpack.o Parameters.o Globals.o  Procedures.o 
 
@@ -11,7 +13,7 @@ SUBR = 	AllocateArrays.o SetParameters.o Grids.o IterateBellman.o HJBUpdate.o cu
 OBJ = $(MOD) $(SUBR)
 
 Main: $(OBJ) Main.o
-	$(FC) $(LDFLAGS) -o $@ $^
+	$(FC) $(LDFLAGS)   $^ -o  $@ $(FCFLAGS)
 
 %.o: %.f90
 	$(FC) $(FCFLAGS) -c $<
