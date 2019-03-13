@@ -15,6 +15,7 @@ REAL(8), DIMENSION(naby)	:: lcmargdist,lcmargcum,lcgrid,lcdelta,lmargdist
 REAL(8), DIMENSION(naby)	:: lincgrid,lincmargdist,lincdelta,lincmargcum,linc_a,linc_b,linc_c,linc_nw,linc_h
 INTEGER, DIMENSION(naby)	:: orderinc
 
+write(*) 'Entry to DistributionStatistics was successful!'
 
 !vectorize everything
 !$OMP PARALLEL DO PRIVATE(ia,ib,iy,iab)

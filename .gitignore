@@ -35,4 +35,6 @@
 Fortran/Main
 
 #Output Folder
-FortranOutputDir/
+FortranOutputDir/*
+!FortranOutputDir/BaselineOutputSubdir
+FortranOutputDir/BaselineOutputSubdir/*
